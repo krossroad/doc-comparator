@@ -36,6 +36,7 @@
         </div>
     </div>
     <footer>
+        <script type="text/javascript" src="<?php echo url('assets/js/app/helper.js') ?>"></script>
         <script type="text/javascript" src="<?php echo url('assets/js/app/app.js') ?>"></script>
     </footer>
 </body>
