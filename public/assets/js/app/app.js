@@ -58,10 +58,10 @@
             this.initPanelViews = function () {
                 var
                     model1 = new DocModel({
-                        this.recordId1
+                        recordId: this.recordId1
                     }),
                     model2 = new DocModel({
-                        this.recordId2
+                        recordId: this.recordId2
                     });
 
                 var rightPanel = new PanelView({
