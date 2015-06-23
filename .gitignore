@@ -1,0 +1,5 @@
+/specs
+/vendor
+
+composer.lock
+.env
