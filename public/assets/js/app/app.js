@@ -4,10 +4,36 @@
         PanelView = function (options) {
             this.el    = options.el;
             this.model = options.model;
+
+            this.initialize = function () {
+                this.bindings();
+                this.triggers();
+            };
+
+            this.bindings = function () {
+            };
+
+            this.triggers = function () {
+                this.model
+                    .fetchFileContent(function(fileContent) {
+
+                    });
+            };
+
+            this.initialize();
         },
         DocModel = function (options) {
             this.recordId = options.recordId;
-            this.fileId = options.fileId;
+            this.fileId = 1; //Set Initial value to 1;
+
+            this.setFileId = function (fileId) {
+                this.fileId = fileId;
+                return this;
+            };
+
+            this.fetchFileContent = function (callback) {
+                console.log('Fetching File Content of ' + this.recordId, this.fileId);
+            };
         },
         AppView = function() {
             this.recordId1 = null;
