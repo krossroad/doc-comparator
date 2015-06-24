@@ -49,9 +49,21 @@ var _AppHelper = (function() {
                 xhr.open(type, url);
                 xhr.send();
             }
+        },
+
+        bind = function (func, context) {
+            var binder, args;
+
+            args = [].slice.call(arguments, 2);
+            binder = function () {
+                return func.apply(context || this, args.concat([].slice.call(arguments)));
+            };
+
+            return binder;
         };
 
     return {
-        ajax: ajax
+        ajax: ajax,
+        bind: bind
     }
 })();
