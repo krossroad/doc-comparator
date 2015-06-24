@@ -1,5 +1,4 @@
-(function () {
-
+(function (helper, undefined) {
     var
         PanelView = function (options) {
             this.el    = options.el;
@@ -7,21 +6,37 @@
 
             this.initialize = function () {
                 this.bindings();
-                this.triggers();
             };
 
             this.bindings = function () {
+                var
+                    _populateText = helper.bind(this.populateText, this);
+
+                this.model
+                    .fetchFileContent(_populateText);
             };
 
-            this.triggers = function () {
-                this.model
-                    .fetchFileContent(function(fileContent) {
+            this.bindQuill = function () {
+                var
+                    textPanel = (this.el.getElementsByClassName('panel-text-view')[0]);
 
+                    this.textPanel = new Quill(textPanel, {
+                        theme: 'snow'
                     });
+            };
+
+            this.populateText = function (fileContent) {
+                var
+                    textPanel = (this.el.getElementsByClassName('panel-text-view')[0]);
+
+                textPanel.innerHTML = fileContent;
+
+                this.bindQuill();
             };
 
             this.initialize();
         },
+
         DocModel = function (options) {
             this.recordId = options.recordId;
             this.fileId = 1; //Set Initial value to 1;
@@ -96,4 +111,4 @@
     window.onload = function () {
         var appView = new AppView();
     };
-})();
+})(_AppHelper);
