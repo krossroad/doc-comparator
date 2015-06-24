@@ -28,3 +28,9 @@ $app->get('/compare/{record_id1:[0-9]+}/{record_id2:[0-9]+}/{action:write|read}'
     'uses' => 'ComparatorController@indexAction',
     'as' => 'apphome'
 ]);
+
+$app->get('/comparator/ajax/{record_id}/{doc_id}', 'ComparatorAjaxController@getIndexAction');
+
+$app->post('/comparator/ajax/{record_id}/{doc_id}', [
+    'uses' => 'ComparatorAjaxController@postIndexAction',
+]);
