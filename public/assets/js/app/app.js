@@ -33,6 +33,22 @@
 
             this.fetchFileContent = function (callback) {
                 console.log('Fetching File Content of ' + this.recordId, this.fileId);
+                var self = this;
+
+                helper.ajax({
+                    url: BaseConfig.baseUrl + 'comparator/ajax/' + this.recordId + '/' + this.fileId,
+                    success: function (resp) {
+                        try {
+                            resp = JSON.parse(resp);
+
+                            callback(resp.file_content);
+                        } catch (e) {
+                            console.error(e);
+                        }
+
+
+                    }
+                });
             };
         },
         AppView = function() {
