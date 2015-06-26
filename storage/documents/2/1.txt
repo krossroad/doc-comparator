@@ -1,0 +1,1 @@
+<div class="ql-editor" id="ql-editor-4" contenteditable="true"><b><i>Keep mov</i>ing forward</b></div><div class="ql-editor" id="ql-editor-4" contenteditable="true"><br></div><div class="ql-paste-manager" contenteditable="true"><br></div>
