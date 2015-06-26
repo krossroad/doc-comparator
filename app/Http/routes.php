@@ -29,8 +29,14 @@ $app->get('/compare/{record_id1:[0-9]+}/{record_id2:[0-9]+}/{action:write|read}'
     'as' => 'apphome'
 ]);
 
-$app->get('/comparator/ajax/{record_id}/{doc_id}', 'ComparatorAjaxController@getIndexAction');
+$app->get('/comparator/ajax/{record_id:[0-9]+}/{doc_id:[0-9]+}', [
+    'uses' => 'ComparatorAjaxController@getIndexAction'
+]);
 
 $app->post('/comparator/ajax/{record_id}/{doc_id}', [
     'uses' => 'ComparatorAjaxController@postIndexAction',
+]);
+
+$app->get('/comparator/ajax/{recordId}/pagination', [
+    'uses' => 'ComparatorAjaxController@getPaginationAction'
 ]);
