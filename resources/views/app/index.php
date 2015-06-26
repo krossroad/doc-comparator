@@ -18,6 +18,12 @@
 
         <div class="row">
             <div class="col-md-6 " id="left-panel" >
+                <div class="pagination-wrapper">
+                    <button class="pg-previous push_button blue">&lt;&lt;</button>
+                    <div class="pg-current-page"></div>
+                    <button class="pg-next push_button blue">&gt;&gt;</button>
+                </div>
+
                 <div class="quill-wrapper">
                     <?php if ($action == 'write'): ?>
                         <?php echo view('app.toolbar')->render(); ?>
@@ -30,6 +36,12 @@
                 <?php endif ?>
             </div>
             <div class="col-md-6" id="right-panel">
+
+                <div class="pagination-wrapper">
+                    <button class="pg-previous push_button blue">&lt;&lt;</button>
+                    <div class="pg-current-page"></div>
+                    <button class="pg-next push_button blue">&gt;&gt;</button>
+                </div>
 
                 <div class="quill-wrapper">
                     <?php if ($action == 'write'): ?>
