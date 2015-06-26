@@ -38,16 +38,36 @@
         },
 
         DocModel = function (options) {
-            this.recordId = options.recordId;
             this.fileId = 1; //Set Initial value to 1;
+            this.recordId = options.recordId;
+            this.paginationDetail = {}
 
             this.setFileId = function (fileId) {
                 this.fileId = fileId;
                 return this;
             };
 
+            this.fetchPaginationDetail = function (callback) {
+                var self = this;
+
+                helper.ajax({
+                    url: BaseConfig.baseUrl + 'comparator/ajax/' + this.recordId + '/pagination',
+                    success: function (resp) {
+                        try {
+                            resp = JSON.parse(resp);
+                            self.paginationDetail = resp.pagination
+
+                            if (callback) {
+                                callback(resp.pagination);
+                            }
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }
+                });
+            };
+
             this.fetchFileContent = function (callback) {
-                console.log('Fetching File Content of ' + this.recordId, this.fileId);
                 var self = this;
 
                 helper.ajax({
@@ -55,15 +75,24 @@
                     success: function (resp) {
                         try {
                             resp = JSON.parse(resp);
-
                             callback(resp.file_content);
                         } catch (e) {
                             console.error(e);
                         }
-
-
                     }
                 });
+            };
+
+            this.putFileContent = function  (newContent) {
+                helper.ajax({
+                    url: BaseConfig.baseUrl + 'comparator/ajax/' + this.recordId + '/' + this.fileId,
+                    type: 'POST',
+                    data: {
+                        file_content: newContent
+                    },
+                    success: function (resp) {
+                    }
+                })
             };
         },
         AppView = function() {
