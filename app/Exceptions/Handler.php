@@ -1,10 +1,11 @@
 <?php namespace App\Exceptions;
 
 use Exception;
+use Comparator\Exceptions\DocumentNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 
-class Handler extends ExceptionHandler {
-
+class Handler extends ExceptionHandler
+{
     /**
      * A list of the exception types that should not be reported.
      *
@@ -36,7 +37,10 @@ class Handler extends ExceptionHandler {
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof DocumentNotFoundException) {
+            return view('error')->with('errorMessage', $e->getMessage());
+        }
+
         return parent::render($request, $e);
     }
-
 }
