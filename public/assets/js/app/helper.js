@@ -60,10 +60,32 @@ var _AppHelper = (function() {
             };
 
             return binder;
+        },
+
+        createEventHandler = function () {
+            var Handler;
+
+            Handler = function () {
+                var target  = document.createTextNode(null);
+
+                this.on = target.addEventListener.bind(target);
+                this.remove = target.removeEventListener.bind(target);
+                this.trigger = function(eventName) {
+                    var args;
+                    args = [].slice.call(arguments, 1);
+
+                    return target.dispatchEvent(new CustomEvent(eventName, {
+                        detail: args
+                    }));
+                }
+            }
+
+            return new Handler();
         };
 
     return {
         ajax: ajax,
-        bind: bind
+        bind: bind,
+        createEventHandler: createEventHandler
     }
 })();
