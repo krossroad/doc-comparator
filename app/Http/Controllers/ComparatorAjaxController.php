@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Comparator\FileHelper;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -10,16 +11,23 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  */
 class ComparatorAjaxController extends BaseController
 {
-    const DOC_EXT = '.txt';
+    /**
+     * @var FileHelper
+     */
+    protected $fileHelper;
+
+    public function __construct(FileHelper $fileHelper)
+    {
+        $this->fileHelper = $fileHelper;
+    }
 
     public function getIndexAction(Request $requet, $record_id, $doc_id)
     {
-
         $status = 'Failed';
         $fileContent = '';
 
         try {
-            $fileContent = $this->getFileContent($record_id, $doc_id);
+            $fileContent = $this->fileHelper->getFileContent($record_id, $doc_id);
             $status = 'Ok';
         } catch (\Exception $e) {
         }
@@ -37,22 +45,18 @@ class ComparatorAjaxController extends BaseController
         $message = '';
         $fileContent = $request->input('file_content');
         try {
-            $this->putFileContent($fileContent, $record_id, $doc_id);
+            $this->fileHelper->putFileContent($fileContent, $record_id, $doc_id);
         } catch (\Exception $e) {
         }
     }
 
-    private function getFileContent($recordId, $docId)
+    public function getPaginationAction(Request $request, $recordId)
     {
-        $fullFilePath = storage_path() . "/documents/{$recordId}/{$docId}" . self::DOC_EXT;
-
-        return file_get_contents($fullFilePath);
-    }
-
-    private function putFileContent($fileContent, $recordId, $docId)
-    {
-        $fullFilePath = storage_path() . "/documents/{$recordId}/{$docId}" . self::DOC_EXT;
-
-        return file_put_contents($fullFilePath, $fileContent);
+        return response()->json([
+            'status' => 'Ok',
+            'pagination' => [
+                'total_documents' => $this->fileHelper->getTotaliFilesInFolder($recordId)
+            ]
+        ]);
     }
 }
