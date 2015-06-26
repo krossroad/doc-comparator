@@ -1,4 +1,4 @@
-<div id="toolbar" class="toolbar ql-toolbar ql-snow">
+<div class="toolbar ql-toolbar ql-snow">
     <span class="ql-format-group">
         <span title="Bold" class="ql-format-button ql-bold"></span>
         <span class="ql-format-separator"></span>
