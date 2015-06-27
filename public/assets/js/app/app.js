@@ -73,15 +73,15 @@
 
             this.bindings = function () {
                 var
-                    self = this,
+                    self       = this,
                     saveButton = this.el.getElementsByClassName('save-doc')[0],
                     paginationContainer = this.el
-                                        .getElementsByClassName('pagination-wrapper')[0];
+                                        .getElementsByClassName('pagination-wrapper')[0],
 
-                    _saveFileContent = helper.bind(this.saveFileContent, this),
-                    _clickNextPage = helper.bind(this.clickNextPage, this),
-                    _clickPreviousPage = helper.bind(this.clickPreviousPage, this),
-                    _populateText = helper.bind(this.populateText, this),
+                    _saveFileContent   = helper.bind(this.saveFileContent, this),
+                    _clickNextPage     = helper.bind(this.clickNextPage, this),
+                    _populateText      = helper.bind(this.populateText, this),
+                    _clickPreviousPage = helper.bind(this.clickPreviousPage, this);
 
                 this.paginationView = new PaginationView({
                     el: paginationContainer
