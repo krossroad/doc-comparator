@@ -150,11 +150,13 @@
 
             this.bindQuill = function () {
                 var
-                    textPanel = this.el.getElementsByClassName('panel-text-view')[0],
-                    toolbar = this.el.getElementsByClassName('toolbar')[0];
+                    toolbar = this.el.getElementsByClassName('toolbar')[0],
+                    readOnly = (this.model.mode == 'read') ? true : false,
+                    textPanel = this.el.getElementsByClassName('panel-text-view')[0];
 
                     this.textPanel = new Quill(textPanel, {
-                        theme: 'snow'
+                        theme: 'snow',
+                        readOnly: readOnly
                     });
 
                     if (toolbar) {
@@ -179,7 +181,8 @@
         DocModel = function (options) {
             this.fileId = 1; //Set Initial value to 1;
             this.recordId = options.recordId;
-            this.paginationDetail = {}
+            this.mode = options.mode;
+            this.paginationDetail = {};
 
             this.setFileId = function (fileId) {
                 this.fileId = fileId;
@@ -257,10 +260,12 @@
             this.initPanelViews = function () {
                 var
                     model1 = new DocModel({
-                        recordId: this.recordId1
+                        recordId: this.recordId1,
+                        mode: this.action
                     }),
                     model2 = new DocModel({
-                        recordId: this.recordId2
+                        recordId: this.recordId2,
+                        mode: this.action
                     });
 
                 var rightPanel = new PanelView({
